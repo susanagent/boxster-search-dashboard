@@ -40,7 +40,9 @@ export function AppShell() {
   const location = useLocation();
   const settingsRef = useRef<HTMLDivElement>(null);
 
-  const lastRun = searchRuns[searchRuns.length - 1];
+  const lastRun = searchRuns.reduce((latest, run) =>
+    !latest || (run.completedAt ?? run.startedAt) > (latest.completedAt ?? latest.startedAt) ? run : latest
+  , searchRuns[0]);
   const staleDays = lastRun ? daysSince(lastRun.completedAt ?? lastRun.startedAt) : undefined;
 
   useEffect(() => {

@@ -16,7 +16,9 @@ export function DashboardPage() {
   const { candidates, searchRuns, sources } = useAppData();
   const [quickViewId, setQuickViewId] = useState<string | null>(null);
 
-  const lastRun = searchRuns[searchRuns.length - 1];
+  const lastRun = searchRuns.reduce((latest, run) =>
+    !latest || (run.completedAt ?? run.startedAt) > (latest.completedAt ?? latest.startedAt) ? run : latest
+  , searchRuns[0]);
   const decisionQueue = useMemo(() => buildDecisionQueue(candidates), [candidates]);
   const staleCandidates = candidates.filter((c) => daysSince(c.lastVerifiedAt) >= 21 || c.status === "Stale");
   const rejected = candidates.filter((c) => c.status === "Rejected");
