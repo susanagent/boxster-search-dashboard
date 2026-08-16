@@ -22,7 +22,7 @@ export function formatDriveTime(minutes: number): string {
 }
 
 export function formatDate(iso: string): string {
-  const date = new Date(`${iso}T00:00:00`);
+  const date = parseDate(iso);
   return new Intl.DateTimeFormat("en-US", {
     month: "short",
     day: "numeric",
@@ -31,7 +31,13 @@ export function formatDate(iso: string): string {
 }
 
 export function daysSince(iso: string, now: Date = new Date()): number {
-  const then = new Date(`${iso}T00:00:00`);
+  const then = parseDate(iso);
   const diffMs = now.getTime() - then.getTime();
   return Math.floor(diffMs / (1000 * 60 * 60 * 24));
+}
+
+function parseDate(iso: string): Date {
+  // Date-only values are interpreted locally; full ISO timestamps already
+  // contain their own time and offset and must not receive another suffix.
+  return new Date(iso.includes("T") ? iso : `${iso}T00:00:00`);
 }
