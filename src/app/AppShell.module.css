@@ -1,0 +1,232 @@
+.shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.rail {
+  width: 220px;
+  flex: none;
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.brand {
+  font-size: var(--font-size-dense);
+  font-weight: 700;
+  padding: var(--space-2);
+  margin-bottom: var(--space-3);
+  letter-spacing: 0.01em;
+}
+
+.brandSub {
+  display: block;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-small);
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-control);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-size: var(--font-size-dense);
+  min-height: 40px;
+}
+
+.navLink:hover {
+  background: var(--color-canvas);
+}
+
+.navLinkActive {
+  background: var(--color-action-tint);
+  color: var(--color-action);
+  font-weight: 600;
+}
+
+.mainCol {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.searchField {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-canvas);
+  flex: 1 1 220px;
+  min-width: 160px;
+  max-width: 360px;
+  color: var(--color-text-secondary);
+}
+
+.searchField input {
+  border: none;
+  background: none;
+  outline: none;
+  flex: 1;
+  color: var(--color-text-primary);
+  min-width: 0;
+}
+
+.freshness {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.utilButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: var(--radius-control);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-dense);
+  min-height: 40px;
+  white-space: nowrap;
+}
+
+.utilButtonPrimary {
+  background: var(--color-action);
+  border-color: var(--color-action);
+  color: var(--color-surface);
+  font-weight: 600;
+}
+
+.utilButton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.main {
+  flex: 1 1 auto;
+  padding: var(--space-5) var(--space-5) var(--space-12);
+}
+
+.bottomNav {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .rail {
+    width: 72px;
+    align-items: center;
+  }
+  .brand {
+    display: none;
+  }
+  .navLink {
+    justify-content: center;
+    padding: var(--space-2);
+    width: 44px;
+    height: 44px;
+  }
+  .navLabel {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .rail {
+    display: none;
+  }
+  .main {
+    padding: var(--space-4) var(--space-3) var(--space-12);
+  }
+  .topbar {
+    padding: var(--space-2) var(--space-3);
+  }
+  .bottomNav {
+    display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 40;
+    background: var(--color-surface);
+    border-top: 1px solid var(--color-border);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .bottomNavItem {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: 56px;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: 11px;
+    position: relative;
+  }
+  .bottomNavItemActive {
+    color: var(--color-action);
+    font-weight: 600;
+  }
+  .moreSheet {
+    position: fixed;
+    bottom: 56px;
+    right: var(--space-3);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-panel);
+    box-shadow: var(--shadow-overlay);
+    padding: var(--space-2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    z-index: 45;
+    min-width: 180px;
+  }
+  .moreSheet a {
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-control);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .moreSheet a:hover {
+    background: var(--color-canvas);
+  }
+}

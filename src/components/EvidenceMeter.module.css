@@ -1,0 +1,24 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 120px;
+}
+
+.track {
+  display: flex;
+  height: 8px;
+  border-radius: var(--radius-control);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  background: var(--color-neutral-tint);
+}
+
+.segment {
+  height: 100%;
+}
+
+.summary {
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+}

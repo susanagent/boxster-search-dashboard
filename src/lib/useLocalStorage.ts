@@ -1,0 +1,22 @@
+import { useEffect, useState } from "react";
+
+export function useLocalStorage<T>(key: string, initial: T): [T, (value: T | ((prev: T) => T)) => void] {
+  const [value, setValue] = useState<T>(() => {
+    try {
+      const raw = window.localStorage.getItem(key);
+      return raw ? (JSON.parse(raw) as T) : initial;
+    } catch {
+      return initial;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      // localStorage unavailable (private browsing, quota) — state stays in-memory for this session.
+    }
+  }, [key, value]);
+
+  return [value, setValue];
+}

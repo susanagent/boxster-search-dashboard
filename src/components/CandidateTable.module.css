@@ -1,0 +1,191 @@
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface);
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--font-size-dense);
+}
+
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-3);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.table td.wrap {
+  white-space: normal;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--color-surface);
+  z-index: 2;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.sortButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  font: inherit;
+  font-weight: inherit;
+  color: inherit;
+  padding: 0;
+  min-height: 32px;
+}
+
+.stickyCol {
+  position: sticky;
+  left: 0;
+  background: var(--color-surface);
+  z-index: 1;
+  border-right: 1px solid var(--color-border);
+}
+
+.table thead th.stickyCol {
+  z-index: 3;
+}
+
+.rowLink {
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.rowLink:hover {
+  color: var(--color-action);
+}
+
+.listingLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-action);
+  border-radius: var(--radius-control);
+  color: var(--color-action);
+  background: var(--color-surface);
+  font-weight: 650;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.listingLink:hover {
+  color: var(--color-surface);
+  background: var(--color-action);
+}
+
+.subtle {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-small);
+  display: block;
+}
+
+.expandButton {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  min-width: 32px;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.expandRow td {
+  background: var(--color-canvas);
+  white-space: normal;
+}
+
+.expandGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+  padding: var(--space-2) 0;
+}
+
+.expandGrid h3 {
+  font-size: var(--font-size-small);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.expandGrid ul {
+  margin: 0;
+  padding-left: var(--space-4);
+  display: grid;
+  gap: 4px;
+}
+
+.checkboxCell {
+  width: 36px;
+}
+
+/* Mobile list variant */
+.mobileList {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.mobileCard {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface);
+  padding: var(--space-3);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.mobileTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+.mobileMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  font-size: var(--font-size-small);
+  color: var(--color-text-secondary);
+}
+
+.mobileBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.mobileActions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.checkboxLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+}

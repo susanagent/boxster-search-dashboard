@@ -1,0 +1,101 @@
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-panel);
+  background: var(--color-surface);
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--font-size-dense);
+}
+
+.table th,
+.table td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--color-surface);
+  z-index: 2;
+}
+
+.rowLabel {
+  position: sticky;
+  left: 0;
+  background: var(--color-surface);
+  z-index: 1;
+  font-weight: 600;
+  border-right: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.groupRow th {
+  background: var(--color-canvas);
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  font-size: var(--font-size-small);
+  letter-spacing: 0.04em;
+  position: static;
+}
+
+.candidateHeader {
+  min-width: 180px;
+}
+
+.headerControls {
+  display: flex;
+  gap: 4px;
+  margin-top: var(--space-2);
+}
+
+.iconButton {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  min-width: 28px;
+  min-height: 28px;
+}
+
+.mobileSelectors {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: var(--space-4);
+}
+
+.mobileSelect {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-control);
+  padding: var(--space-2);
+  min-height: 44px;
+  background: var(--color-canvas);
+}
+
+@media (max-width: 767px) {
+  .mobileSelectors {
+    grid-template-columns: 1fr;
+  }
+}

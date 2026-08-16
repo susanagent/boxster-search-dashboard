@@ -1,0 +1,52 @@
+:root {
+  --color-canvas: #f4f1ea;
+  --color-surface: #fcfbf7;
+  --color-text-primary: #17191b;
+  --color-text-secondary: #555a5f;
+  --color-border: #d4d0c7;
+  --color-action: #8d2f2b;
+  --color-warning: #9b6417;
+  --color-positive: #2e684d;
+  --color-info: #355d79;
+  --color-neutral: #555a5f;
+
+  --color-action-tint: #f4e3e2;
+  --color-warning-tint: #f3e6d3;
+  --color-positive-tint: #dfeae4;
+  --color-info-tint: #dee7ed;
+  --color-neutral-tint: #e7e5df;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  --radius-control: 6px;
+  --radius-panel: 8px;
+
+  --font-size-base: 16px;
+  --font-size-dense: 14px;
+  --font-size-small: 12.5px;
+  --line-height-dense: 1.45;
+
+  --shadow-panel: 0 1px 2px rgba(23, 25, 27, 0.08);
+  --shadow-overlay: 0 4px 16px rgba(23, 25, 27, 0.16);
+
+  --motion-duration: 220ms;
+  --motion-easing: cubic-bezier(0.2, 0, 0, 1);
+
+  --focus-ring: 2px solid var(--color-action);
+  --focus-ring-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-duration: 1ms;
+  }
+}
