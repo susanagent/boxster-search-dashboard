@@ -15,6 +15,7 @@ import { buildDecisionQueue } from "../lib/decisionQueue";
 import { daysSince, formatCurrency, formatDate, formatMileage } from "../lib/format";
 import { nextAction } from "../lib/nextAction";
 import styles from "./DashboardPage.module.css";
+import { sortCandidates } from "../lib/candidateSort";
 
 export function DashboardPage() {
   const { candidates, searchRuns, sources } = useAppData();
@@ -35,6 +36,7 @@ export function DashboardPage() {
   const staleCandidates = candidates.filter((c) => daysSince(c.lastVerifiedAt) >= 21 || c.status === "Stale");
   const rejected = candidates.filter((c) => c.status === "Rejected");
   const allFeedback = candidates.flatMap((c) => c.feedback.map((f) => ({ ...f, candidateTitle: c.title })));
+  const recentCandidates = useMemo(() => sortCandidates(candidates, "recent").slice(0, 5), [candidates]);
 
   return (
     <div>
@@ -106,6 +108,25 @@ export function DashboardPage() {
           <DecisionQueue items={decisionQueue} />
         </Panel>
       </div>
+
+      <Panel title="Most recent entries">
+        <p className={styles.sectionIntro}>Newest records brought into the candidate ledger, ordered by import date.</p>
+        <ol className={styles.recentList}>
+          {recentCandidates.map((candidate, index) => (
+            <li key={candidate.id} className={styles.recentItem}>
+              <div>
+                <span className={styles.recentLabel}>{index === 0 ? "Latest entry" : `#${index + 1}`}</span>
+                <Link to={`/candidates/${candidate.id}`}>{candidate.id} · {candidate.title}</Link>
+                <span className={styles.recentMeta}>{candidate.location} · {candidate.distanceMiles ?? "Unknown"} mi</span>
+              </div>
+              <div className={styles.recentDate}>
+                <span>Added</span>
+                <strong>{formatDate(candidate.createdAt)}</strong>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </Panel>
 
       <Panel title="Ranked candidate ledger">
         <CandidateTable candidates={candidates} caption="Ranked candidate ledger" density="summary" />

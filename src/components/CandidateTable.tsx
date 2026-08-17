@@ -13,6 +13,7 @@ import { RiskFlagBadge } from "./RiskFlagBadge";
 import { CandidateThumbnail } from "./CandidateThumbnail";
 import { ChevronDownIcon, ChevronUpIcon, ArrowUpDownIcon, ExternalLinkIcon } from "./icons";
 import styles from "./CandidateTable.module.css";
+import { sortCandidates, type CandidateSort } from "../lib/candidateSort";
 
 type SortKey = "rank" | "title" | "transmission" | "askPrice" | "mileage" | "distance" | "score" | "confidence" | "status" | "lastVerified";
 type SortDir = "asc" | "desc";
@@ -37,11 +38,13 @@ export function CandidateTable({
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [sortKey, setSortKey] = useState<SortKey>("score");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
+  const [primarySort, setPrimarySort] = useState<CandidateSort>("ranking");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const { isInCompare, toggleCompare, canAddToCompare } = useAppData();
 
   const sorted = useMemo(() => {
     if (!allowSort) return candidates;
+    if (primarySort === "recent") return sortCandidates(candidates, "recent");
     const copy = [...candidates];
     copy.sort((a, b) => {
       const dir = sortDir === "asc" ? 1 : -1;
@@ -69,9 +72,21 @@ export function CandidateTable({
       }
     });
     return copy;
-  }, [candidates, allowSort, sortKey, sortDir]);
+  }, [candidates, allowSort, primarySort, sortKey, sortDir]);
+
+  function onPrimarySort(sort: CandidateSort) {
+    setPrimarySort(sort);
+    if (sort === "ranking") {
+      setSortKey("score");
+      setSortDir("desc");
+    } else if (sort === "distance") {
+      setSortKey("distance");
+      setSortDir("asc");
+    }
+  }
 
   function onSort(key: SortKey) {
+    setPrimarySort(key === "distance" ? "distance" : key === "score" ? "ranking" : "ranking");
     if (key === sortKey) {
       setSortDir((d) => (d === "asc" ? "desc" : "asc"));
     } else {
@@ -109,8 +124,25 @@ export function CandidateTable({
     return null;
   }
 
+  const sortControls = allowSort ? (
+    <div className={styles.sortControls}>
+      <label htmlFor={`candidate-sort-${caption.replace(/\s+/g, "-").toLowerCase()}`}>Sort entries</label>
+      <select
+        id={`candidate-sort-${caption.replace(/\s+/g, "-").toLowerCase()}`}
+        value={primarySort}
+        onChange={(event) => onPrimarySort(event.target.value as CandidateSort)}
+      >
+        <option value="recent">Most recent</option>
+        <option value="distance">Distance — nearest first</option>
+        <option value="ranking">Ranking — best first</option>
+      </select>
+    </div>
+  ) : null;
+
   if (!isDesktop) {
     return (
+      <>
+      {sortControls}
       <ul className={styles.mobileList} aria-label={caption} style={{ listStyle: "none", margin: 0, padding: 0 }}>
         {sorted.map((c, i) => (
           <li key={c.id} className={styles.mobileCard}>
@@ -165,10 +197,13 @@ export function CandidateTable({
           </li>
         ))}
       </ul>
+      </>
     );
   }
 
   return (
+    <>
+    {sortControls}
     <div className={styles.tableWrap}>
       <table className={styles.table}>
         <caption className="visually-hidden">{caption}</caption>
@@ -213,6 +248,7 @@ export function CandidateTable({
         </tbody>
       </table>
     </div>
+    </>
   );
 }
 
