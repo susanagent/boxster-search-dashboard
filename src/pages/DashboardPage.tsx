@@ -1,25 +1,37 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useAppData } from "../context/AppDataContext";
 import { PageHeader } from "../components/PageHeader";
 import { Panel } from "../components/Panel";
 import { CandidateTable } from "../components/CandidateTable";
-import { CandidateQuickView } from "../components/CandidateQuickView";
 import { DecisionQueue } from "../components/DecisionQueue";
 import { SourceYieldList } from "../components/SourceYieldList";
 import { EmptyState } from "../components/EmptyState";
+import { CandidateThumbnail } from "../components/CandidateThumbnail";
+import { ScoreBadge } from "../components/ScoreBadge";
+import { ConfidenceLabel } from "../components/ConfidenceLabel";
+import { EvidenceMeter } from "../components/EvidenceMeter";
 import { buildDecisionQueue } from "../lib/decisionQueue";
-import { daysSince, formatDate } from "../lib/format";
+import { daysSince, formatCurrency, formatDate, formatMileage } from "../lib/format";
+import { nextAction } from "../lib/nextAction";
 import styles from "./DashboardPage.module.css";
 
 export function DashboardPage() {
   const { candidates, searchRuns, sources } = useAppData();
-  const [quickViewId, setQuickViewId] = useState<string | null>(null);
-
   const lastRun = searchRuns.reduce((latest, run) =>
     !latest || (run.completedAt ?? run.startedAt) > (latest.completedAt ?? latest.startedAt) ? run : latest
   , searchRuns[0]);
   const decisionQueue = useMemo(() => buildDecisionQueue(candidates), [candidates]);
+  const topCandidate = useMemo(() => {
+    const eligible = candidates.filter(
+      (candidate) =>
+        !["Rejected", "Sold", "Removed"].includes(candidate.status)
+        && !candidate.risks.some((risk) => risk.severity === "blocking"),
+    );
+    const documented = eligible.filter((candidate) => candidate.confidence !== "low");
+    return [...(documented.length > 0 ? documented : eligible)]
+      .sort((a, b) => b.score.total - a.score.total)[0];
+  }, [candidates]);
   const staleCandidates = candidates.filter((c) => daysSince(c.lastVerifiedAt) >= 21 || c.status === "Stale");
   const rejected = candidates.filter((c) => c.status === "Rejected");
   const allFeedback = candidates.flatMap((c) => c.feedback.map((f) => ({ ...f, candidateTitle: c.title })));
@@ -28,8 +40,38 @@ export function DashboardPage() {
     <div>
       <PageHeader
         title="Dashboard"
-        subtitle="Which Boxster deserves the next call, inspection, or PPI? Every ranking below shows score and confidence separately — a low-confidence score should not outrank well-documented evidence."
+        subtitle="See the strongest candidate, the evidence behind it, and the next decision to make."
       />
+
+      {topCandidate && (
+        <section className={styles.featured} aria-labelledby="featured-candidate-title">
+          <div className={styles.featuredVisual}>
+            <CandidateThumbnail candidate={topCandidate} size="hero" />
+          </div>
+          <div className={styles.featuredBody}>
+            <span className={styles.eyebrow}>Best documented candidate</span>
+            <h2 id="featured-candidate-title" className={styles.featuredTitle}>{topCandidate.title}</h2>
+            <p className={styles.featuredSpec}>
+              {formatCurrency(topCandidate.askPrice)} · {formatMileage(topCandidate.mileage)} · {topCandidate.transmission} · {topCandidate.location}
+            </p>
+            <div className={styles.featuredSignals}>
+              <ScoreBadge score={topCandidate.score} showBreakdown={false} />
+              <ConfidenceLabel level={topCandidate.confidence} compact />
+              <EvidenceMeter facts={topCandidate.facts} />
+            </div>
+            <div className={styles.nextMove}>
+              <span className={styles.nextMoveLabel}>Recommended next move</span>
+              <strong>{nextAction(topCandidate)}</strong>
+            </div>
+            <div className={styles.featuredActions}>
+              <Link className={styles.primaryAction} to={`/candidates/${topCandidate.id}`}>Review candidate</Link>
+              {topCandidate.listings[0] && (
+                <a className={styles.secondaryAction} href={topCandidate.listings[0].url} target="_blank" rel="noreferrer">Open listing ↗</a>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
 
       <div className={styles.grid}>
         <Panel title="Search pulse">
@@ -66,7 +108,11 @@ export function DashboardPage() {
       </div>
 
       <Panel title="Ranked candidate ledger">
-        <CandidateTable candidates={candidates} caption="Ranked candidate ledger" onQuickView={setQuickViewId} />
+        <CandidateTable candidates={candidates} caption="Ranked candidate ledger" density="summary" />
+        <div className={styles.ledgerFooter}>
+          <span>Showing the fields needed for a first decision.</span>
+          <Link to="/candidates">Open full candidate analysis →</Link>
+        </div>
       </Panel>
 
       <div className={styles.gridThree}>
@@ -122,7 +168,6 @@ export function DashboardPage() {
         </Panel>
       </div>
 
-      <CandidateQuickView candidateId={quickViewId} onClose={() => setQuickViewId(null)} />
     </div>
   );
 }

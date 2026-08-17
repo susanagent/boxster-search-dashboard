@@ -23,12 +23,14 @@ export function CandidateTable({
   candidates,
   allowSort = true,
   allowSelection = true,
+  density = "full",
   caption,
   onQuickView,
 }: {
   candidates: Candidate[];
   allowSort?: boolean;
   allowSelection?: boolean;
+  density?: "summary" | "full";
   caption: string;
   onQuickView?: (id: string) => void;
 }) {
@@ -180,21 +182,19 @@ export function CandidateTable({
             </th>
             <th scope="col">Visual</th>
             <SortHeader column="title" label="Year / Model" />
-            <SortHeader column="transmission" label="Transmission" />
+            {density === "full" && <SortHeader column="transmission" label="Transmission" />}
             <SortHeader column="askPrice" label="Price" />
-            <SortHeader column="mileage" label="Mileage" />
-            <SortHeader column="distance" label="Distance" />
+            {density === "full" && <SortHeader column="mileage" label="Mileage" />}
+            {density === "full" && <SortHeader column="distance" label="Distance" />}
             <SortHeader column="score" label="Score" />
             <SortHeader column="confidence" label="Confidence" />
             <th scope="col">Evidence</th>
-            <SortHeader column="status" label="Status" />
-            <SortHeader column="lastVerified" label="Last verified" />
+            {density === "full" && <SortHeader column="status" label="Status" />}
+            {density === "full" && <SortHeader column="lastVerified" label="Last verified" />}
             <th scope="col">Next action</th>
             <th scope="col">Listing</th>
-            {onQuickView && <th scope="col">Quick view</th>}
-            <th scope="col">
-              <span className="visually-hidden">Expand</span>
-            </th>
+            {density === "full" && onQuickView && <th scope="col">Quick view</th>}
+            {density === "full" && <th scope="col"><span className="visually-hidden">Expand</span></th>}
           </tr>
         </thead>
         <tbody>
@@ -206,7 +206,8 @@ export function CandidateTable({
               expanded={expandedId === c.id}
               onToggleExpand={() => setExpandedId((id) => (id === c.id ? null : c.id))}
               allowSelection={allowSelection}
-              onQuickView={onQuickView}
+              onQuickView={density === "full" ? onQuickView : undefined}
+              density={density}
             />
           ))}
         </tbody>
@@ -222,6 +223,7 @@ function CandidateRow({
   onToggleExpand,
   allowSelection,
   onQuickView,
+  density,
 }: {
   candidate: Candidate;
   rank: number;
@@ -229,6 +231,7 @@ function CandidateRow({
   onToggleExpand: () => void;
   allowSelection: boolean;
   onQuickView?: (id: string) => void;
+  density: "summary" | "full";
 }) {
   const { isInCompare, toggleCompare, canAddToCompare } = useAppData();
   const rowId = `candidate-row-${c.id}`;
@@ -260,10 +263,10 @@ function CandidateRow({
           </Link>
           <span className={styles.subtle}>{c.location}</span>
         </td>
-        <td style={{ textTransform: "capitalize" }}>{c.transmission}</td>
+        {density === "full" && <td style={{ textTransform: "capitalize" }}>{c.transmission}</td>}
         <td>{formatCurrency(c.askPrice)}</td>
-        <td>{formatMileage(c.mileage)}</td>
-        <td>
+        {density === "full" && <td>{formatMileage(c.mileage)}</td>}
+        {density === "full" && <td>
           {c.distanceMiles !== undefined ? (
             <>
               {c.distanceMiles} mi
@@ -274,7 +277,7 @@ function CandidateRow({
           ) : (
             "Unknown"
           )}
-        </td>
+        </td>}
         <td>
           <ScoreBadge score={c.score} showBreakdown={false} />
         </td>
@@ -284,10 +287,10 @@ function CandidateRow({
         <td>
           <EvidenceMeter facts={c.facts} />
         </td>
-        <td>
+        {density === "full" && <td>
           <StatusPill status={c.status} />
-        </td>
-        <td>{formatDate(c.lastVerifiedAt)}</td>
+        </td>}
+        {density === "full" && <td>{formatDate(c.lastVerifiedAt)}</td>}
         <td className="wrap">{nextAction(c)}</td>
         <td>
           {c.listings[0] ? (
@@ -306,7 +309,7 @@ function CandidateRow({
             </button>
           </td>
         )}
-        <td>
+        {density === "full" && <td>
           <button
             type="button"
             className={styles.expandButton}
@@ -317,9 +320,9 @@ function CandidateRow({
             {expanded ? <ChevronUpIcon size={14} /> : <ChevronDownIcon size={14} />}
             <span className="visually-hidden">{expanded ? "Collapse" : "Expand"} details for {c.title}</span>
           </button>
-        </td>
+        </td>}
       </tr>
-      {expanded && (
+      {density === "full" && expanded && (
         <tr className={styles.expandRow} id={rowId}>
           <td colSpan={20}>
             <div className={styles.expandGrid}>

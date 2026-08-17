@@ -32,7 +32,7 @@ export function SourcesPage() {
           return (
             <Panel key={s.id} title={s.name}>
               <p style={{ color: "var(--color-text-secondary)", marginTop: 0 }}>
-                Type: {s.type}
+                Type: {s.type} · Priority: {s.priority}
                 {s.url ? (
                   <>
                     {" · "}
@@ -42,6 +42,7 @@ export function SourcesPage() {
                   </>
                 ) : null}
               </p>
+              <p style={{ color: "var(--color-text-secondary)", marginTop: 0 }}>{s.accessNote}</p>
               <dl
                 style={{
                   display: "grid",
@@ -51,6 +52,18 @@ export function SourcesPage() {
                   marginBottom: "var(--space-4)",
                 }}
               >
+                <div>
+                  <dt style={{ color: "var(--color-text-secondary)" }}>Listings scanned</dt>
+                  <dd style={{ margin: 0 }}>{s.metrics.listingsScanned ?? "Not yet measured"}</dd>
+                </div>
+                <div>
+                  <dt style={{ color: "var(--color-text-secondary)" }}>Active verified</dt>
+                  <dd style={{ margin: 0 }}>{s.metrics.activeListingsVerified ?? "Not yet measured"}</dd>
+                </div>
+                <div>
+                  <dt style={{ color: "var(--color-text-secondary)" }}>Unique / promoted</dt>
+                  <dd style={{ margin: 0 }}>{s.metrics.uniqueCandidates !== undefined ? `${s.metrics.uniqueCandidates} / ${s.metrics.promotedCandidates ?? 0}` : "Not yet measured"}</dd>
+                </div>
                 <div>
                   <dt style={{ color: "var(--color-text-secondary)" }}>Qualified candidates</dt>
                   <dd style={{ margin: 0 }}>{s.metrics.qualifiedCandidates}</dd>

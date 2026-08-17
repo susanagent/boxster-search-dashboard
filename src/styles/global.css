@@ -26,6 +26,7 @@ h3,
 h4 {
   font-weight: 600;
   line-height: 1.25;
+  letter-spacing: -0.018em;
   margin: 0;
 }
 
@@ -43,6 +44,10 @@ textarea {
 
 button {
   cursor: pointer;
+}
+
+button:active:not(:disabled) {
+  transform: scale(0.97);
 }
 
 table {

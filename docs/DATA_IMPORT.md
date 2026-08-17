@@ -7,7 +7,7 @@ search run — automated or manual — should update that data.
 
 ## Why local TypeScript modules, not a database
 
-The candidate set is small (currently 5, expected to stay in the dozens),
+The candidate set is small (currently 8, expected to stay in the dozens),
 updates are infrequent (one search run at a time), and the canonical source
 of truth is a pair of durable notes (Boxster Search, Candidate Ledger), not a
 live external feed. A typed local data layer is the simplest thing that
@@ -61,6 +61,14 @@ Append a `SearchRun` to `src/data/searchRuns.ts` with `sourcesAttempted` /
 `sourcesSucceeded` / `sourcesFailed`, the new/updated/duplicate/stale/rejected
 counts, and an `events` timeline. Leave `listingsScanned`/`durationMinutes`
 undefined if genuinely not tracked yet rather than guessing.
+
+For each attempted source, also update `src/data/sources.ts` with measurable outcomes when known: listings scanned, active detail pages verified, unique candidates, promoted candidates, qualified candidates, duplicates, stale/false positives, blocked checks, zero-result checks, manual-match rate, evidence completeness, geographic yield, and useful-price range. Discovery aggregators and search snippets must point to a verified origin/detail page before promotion.
+
+## Search-gap and import-health checks
+
+After each run, identify useful gaps in the active inventory and generate targeted next-run queries by changing only the missing dimension (source, geography, price, generation, or transmission lane). Recheck promising watch/rejected vehicles when their price or evidence changes.
+
+Before committing an import, verify that the canonical ledger count, `CANDIDATES.length`, candidate ID set, and rendered dashboard count agree. Run typecheck, tests, and build so malformed source metrics or candidate changes cannot silently hide records.
 
 ## Proposing a rule change
 

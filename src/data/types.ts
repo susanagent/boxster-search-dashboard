@@ -190,7 +190,14 @@ export interface Candidate {
 }
 
 export interface SourceMetrics {
+  listingsScanned?: number;
+  activeListingsVerified?: number;
+  uniqueCandidates?: number;
+  promotedCandidates?: number;
   qualifiedCandidates: number;
+  falsePositiveRate?: number;
+  blockedChecks?: number;
+  zeroResultChecks?: number;
   manualMatchRate?: number;
   duplicateRate?: number;
   staleOrFalsePositiveRate?: number;
@@ -205,6 +212,8 @@ export interface Source {
   name: string;
   type: "marketplace" | "enthusiast-forum" | "dealer-network" | "auction" | "manual";
   url?: string;
+  priority: "primary" | "secondary" | "comparables";
+  accessNote?: string;
   metrics: SourceMetrics;
 }
 
