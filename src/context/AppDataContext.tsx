@@ -32,7 +32,7 @@ export interface NewCandidateInput {
 
 // Bump whenever canonical candidate seed data changes so existing browsers
 // receive new research results instead of retaining an obsolete local cache.
-const SEED_VERSION = "2026-08-16.3";
+const SEED_VERSION = "2026-08-17.1";
 const MAX_COMPARE = 4;
 
 interface StoredState {
