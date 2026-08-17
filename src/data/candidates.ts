@@ -384,7 +384,45 @@ const bx008 = buildCandidate({
   createdAt: "2026-08-16",
 });
 
-export const CANDIDATES: Candidate[] = [bx001, bx002, bx003, bx004, bx005, bx006, bx007, bx008];
+const bx009 = buildCandidate({
+  id: "BX-009",
+  title: "2001 Porsche Boxster Base",
+  year: 2001,
+  generation: "986",
+  location: "Washington, NJ",
+  coordinates: { lat: 40.7587, lng: -74.9791 },
+  askPrice: 12995,
+  mileage: 54008,
+  transmission: "manual",
+  sellerType: "dealer",
+  status: "Profiling",
+  vin: "WP0CA29801U622316",
+  factOverrides: {
+    vin: { status: "inferred", detail: "VIN appears in Club Manual's structured page data; confirm against the vehicle and dealer record.", sourceId: "club-manual", date: "2026-08-17" },
+    "out-the-door-price": { status: "unknown", detail: "Dealer fees and complete out-the-door price are not displayed.", sourceId: "club-manual", date: "2026-08-17" },
+  },
+  extraFacts: [
+    { id: "listing-availability", label: "Listing availability", status: "confirmed", detail: "Club Manual structured data reports InStock at $12,995 with 54,008 miles and manual transmission.", sourceId: "club-manual", date: "2026-08-17" },
+  ],
+  risks: [
+    { id: "BX-009-R1", title: "Mechanical and ownership evidence absent", severity: "medium", evidence: "The accessible listing confirms basic inventory facts but provides no service, title, accident, IMS, clutch, cooling, or top history.", resolution: "Verify source inventory, VIN, history report, service records, and Porsche-specialist PPI before travel." },
+    { id: "BX-009-R2", title: "Dealer fees undisclosed", severity: "medium", evidence: "Only asking price is displayed; complete acquisition price is unknown.", resolution: "Obtain an itemized out-the-door price before travel." },
+  ],
+  sellerQuestions: [
+    { id: "BX-009-Q1", question: "Can you confirm the VIN and provide the title/history report?", status: "queued", provenance: "Derived from listing evidence gaps" },
+    { id: "BX-009-Q2", question: "Can you provide service records, including IMS, clutch, cooling-system, and top work?", status: "queued", provenance: "Derived from listing evidence gaps" },
+    { id: "BX-009-Q3", question: "What is the complete itemized out-the-door price?", status: "queued", provenance: "Derived from dealer-fee risk" },
+  ],
+  strength: "Close-to-home, in-band 2001 manual with low displayed mileage and an active structured inventory record.",
+  initialRecommendation: "Best new local lead; verify the originating inventory, VIN, history, records, and dealer fees before travel.",
+  sourceId: "club-manual",
+  url: "https://clubmanual.com/listing/2001-porsche-boxster-manual-e0fe09c4-ac5f-4a6f-9884-f41324063903",
+  firstSeen: "2026-08-17",
+  lastVerifiedAt: "2026-08-17T01:02:00-04:00",
+  createdAt: "2026-08-17",
+});
+
+export const CANDIDATES: Candidate[] = [bx001, bx002, bx003, bx004, bx005, bx006, bx007, bx008, bx009];
 
 export function getCandidateById(id: string): Candidate | undefined {
   return CANDIDATES.find((c) => c.id === id);

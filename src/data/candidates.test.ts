@@ -3,7 +3,7 @@ import { CANDIDATES } from "./candidates";
 import { FACT_CATALOG } from "./factCatalog";
 
 describe("seed candidates", () => {
-  it("has the eight canonical candidates with unique ids", () => {
+  it("has the nine canonical candidates with unique ids", () => {
     expect(CANDIDATES.map((c) => c.id)).toEqual([
       "BX-001",
       "BX-002",
@@ -13,6 +13,7 @@ describe("seed candidates", () => {
       "BX-006",
       "BX-007",
       "BX-008",
+      "BX-009",
     ]);
     expect(new Set(CANDIDATES.map((c) => c.id)).size).toBe(CANDIDATES.length);
   });

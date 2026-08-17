@@ -32,6 +32,7 @@ export const SOURCES: Source[] = [
   source("986forum", "986 Forum classifieds", "enthusiast-forum", "https://986forum.com/forums/", "primary", "Search forum classifieds and owner build/history threads."),
   source("facebook-marketplace", "Facebook Marketplace", "marketplace", "https://www.facebook.com/marketplace", "primary", "Use multiple geographic centers; login-gated cards are not verified inventory."),
   source("autotempest", "AutoTempest", "marketplace", "https://www.autotempest.com", "primary", "Use for discovery, then verify on the originating marketplace."),
+  source("club-manual", "Club Manual", "marketplace", "https://clubmanual.com/vehicles/porsche/boxster", "primary", "Manual-only discovery source with accessible structured detail pages; verify originating dealer inventory.", { listingsScanned: 14, activeListingsVerified: 1, uniqueCandidates: 1, promotedCandidates: 1, lastSuccessfulCheck: "2026-08-17" }),
   source("autotrader", "Autotrader", "marketplace", "https://www.autotrader.com", "secondary", "Latest direct retrieval failed; retry with browser rendering.", { blockedChecks: 1 }),
   source("cargurus", "CarGurus", "marketplace", "https://www.cargurus.com", "secondary", "Direct retrieval was blocked; verify through an interactive detail page.", { blockedChecks: 1 }),
   source("carfax", "CARFAX Used Cars", "marketplace", "https://www.carfax.com/cars-for-sale", "secondary", "Direct retrieval was blocked; history summaries remain triage evidence.", { blockedChecks: 1 }),
