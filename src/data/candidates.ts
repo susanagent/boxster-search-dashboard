@@ -54,7 +54,7 @@ const bx001 = buildCandidate({
   sourceId: CRAIGSLIST,
   url: "https://www.craigslist.org/view/d/island-park-2002-speed-yellow-porsche/vQT4zs9YShYYj6ekz3DJR7",
   firstSeen: "2026-08-16",
-  lastVerifiedAt: "2026-08-16",
+  lastVerifiedAt: "2026-08-18T19:55:00-04:00",
   createdAt: "2026-08-16",
 });
 
@@ -122,7 +122,7 @@ const bx002 = buildCandidate({
   sourceId: CRAIGSLIST,
   url: "https://www.craigslist.org/view/d/waterford-1997-porsche-boxster/fS895eYoADwtWHJTu4qNin",
   firstSeen: "2026-08-16",
-  lastVerifiedAt: "2026-08-16",
+  lastVerifiedAt: "2026-08-18T19:55:00-04:00",
   createdAt: "2026-08-16",
 });
 
@@ -181,7 +181,7 @@ const bx003 = buildCandidate({
   sourceId: CRAIGSLIST,
   url: "https://www.craigslist.org/view/d/feasterville-trevose-1997-porsche/2vCdBhzBLVtRbX5fh46pwo",
   firstSeen: "2026-08-16",
-  lastVerifiedAt: "2026-08-16",
+  lastVerifiedAt: "2026-08-18T19:55:00-04:00",
   createdAt: "2026-08-16",
 });
 
@@ -221,7 +221,7 @@ const bx004 = buildCandidate({
   sourceId: CRAIGSLIST,
   url: "https://www.craigslist.org/view/d/marshall-porsche-boxster-2002-for-sale/88dKLrE4AZqeyNhDMHj5pe",
   firstSeen: "2026-08-16",
-  lastVerifiedAt: "2026-08-16",
+  lastVerifiedAt: "2026-08-18T19:55:00-04:00",
   createdAt: "2026-08-16",
 });
 
@@ -266,7 +266,7 @@ const bx005 = buildCandidate({
   sourceId: CRAIGSLIST,
   url: "https://www.craigslist.org/view/d/wake-forest-2003-porsche-boxster/25cA2DBsxyRqUHyH2kFHLg",
   firstSeen: "2026-08-16",
-  lastVerifiedAt: "2026-08-16",
+  lastVerifiedAt: "2026-08-18T19:55:00-04:00",
   createdAt: "2026-08-16",
 });
 
@@ -306,7 +306,7 @@ const bx006 = buildCandidate({
   sourceId: CRAIGSLIST,
   url: "https://www.craigslist.org/view/d/philadelphia-2001-porsche-boxster-clean/7Q7gVHR6Y2qWJFXFHEt2vd",
   firstSeen: "2026-08-16",
-  lastVerifiedAt: "2026-08-16T16:32:00-04:00",
+  lastVerifiedAt: "2026-08-18T19:55:00-04:00",
   createdAt: "2026-08-16",
 });
 
@@ -418,7 +418,7 @@ const bx009 = buildCandidate({
   sourceId: "club-manual",
   url: "https://clubmanual.com/listing/2001-porsche-boxster-manual-e0fe09c4-ac5f-4a6f-9884-f41324063903",
   firstSeen: "2026-08-17",
-  lastVerifiedAt: "2026-08-17T01:02:00-04:00",
+  lastVerifiedAt: "2026-08-18T19:55:30-04:00",
   createdAt: "2026-08-17",
 });
 
